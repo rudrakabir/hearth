@@ -1,12 +1,13 @@
 ---
-// No frontmatter needed for this simple example
+import { Astro } from 'astro';
+const posts = Astro.fetchContent('../pages/blog/*.md').sort((a, b) => new Date(b.date) - new Date(a.date));
 ---
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>Blog</title>
 </head>
 <body>
     <nav>
@@ -20,13 +21,18 @@
         </ul>
     </nav>
     <header>
-        <h1>Welcome to Our Website!</h1>
+        <h1>Blog Posts</h1>
     </header>
     <main>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec diam risus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque sit amet hendrerit risus, vel efficitur erat. Duis eget nisl leo. Cras vel nulla sit amet ligula vehicula consequat et eget leo. Fusce in augue non nisi fringilla dapibus.</p>
+        <ul>
+            {posts.map(post => (
+                <li><a href={`/blog/${post.file.slice(0, -3)}`}>{post.title}</a> - Posted on {new Date(post.date).toLocaleDateString()}</li>
+            ))}
+        </ul>
     </main>
     <footer>
-        <p>Copyright &copy; 2023 All rights reserved.</p>
+        <p>Copyright © 2023 All rights reserved.</p>
     </footer>
 </body>
 </html>
+
