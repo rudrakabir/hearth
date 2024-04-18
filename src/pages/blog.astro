@@ -1,7 +1,4 @@
----
-import { Astro } from 'astro';
-const posts = Astro.fetchContent('../pages/blog/*.md').sort((a, b) => new Date(b.date) - new Date(a.date));
----
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,16 +20,9 @@ const posts = Astro.fetchContent('../pages/blog/*.md').sort((a, b) => new Date(b
     <header>
         <h1>Blog Posts</h1>
     </header>
-    <main>
-        <ul>
-            {posts.map(post => (
-                <li><a href={`/blog/${post.file.slice(0, -3)}`}>{post.title}</a> - Posted on {new Date(post.date).toLocaleDateString()}</li>
-            ))}
-        </ul>
-    </main>
+
     <footer>
         <p>Copyright © 2023 All rights reserved.</p>
     </footer>
 </body>
 </html>
-
